@@ -1,11 +1,11 @@
 import React from 'react';
-import { List, Datagrid, TextField, ReferenceField, EditButton, SimpleForm, TextInput, ReferenceInput, SelectInput, Edit, Create } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField, EditButton, SimpleForm, TextInput, ReferenceInput, SelectInput, Edit, Create, Filter } from 'react-admin';
 
-export const PostList = (props:any) => (
-    <List {...props}>
+export const SaleList = (props:any) => (
+    <List filters={<SaleFilter />} {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
-            <ReferenceField source="userId" reference="users">
+            <ReferenceField source="userId" reference="Users">
                 <TextField source="name" />
             </ReferenceField>
             <TextField source="id" />
@@ -16,11 +16,11 @@ export const PostList = (props:any) => (
     </List>
 );
 
-export const PostEdit = (props:any) => (
+export const SaleEdit = (props:any) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
-            <ReferenceInput source="userId" reference="users">
+            <ReferenceInput source="userId" reference="Users">
                 <SelectInput optionText="name" />
             </ReferenceInput>
             <TextInput source="title" />
@@ -29,10 +29,10 @@ export const PostEdit = (props:any) => (
     </Edit>
 );
 
-export const PostCreate = (props:any) => (
+export const SaleCreate = (props:any) => (
     <Create {...props}>
         <SimpleForm>
-            <ReferenceInput source="userId" reference="users">
+            <ReferenceInput source="userId" reference="Users">
                 <SelectInput optionText="name" />
             </ReferenceInput>
             <TextInput source="title" validate={required()} />
@@ -41,8 +41,17 @@ export const PostCreate = (props:any) => (
     </Create>
 );
 
+const SaleFilter = (props:any) => (
+    <Filter {...props}>
+        <TextInput label="Search" source="q" alwaysOn />
+        <ReferenceInput label="User" source="userId" reference="Users" allowEmpty>
+            <SelectInput optionText="name" />
+        </ReferenceInput>
+    </Filter>
+);
+
 
 const required = (message = 'Required') =>
     (value:any) => value ? undefined : message;
-const maxLength = (max: number, message = 'Too long') =>
+const maxLength = (max: number, message = 'This value is too long') =>
     (value:any) => value && value.length > max ? message : undefined;

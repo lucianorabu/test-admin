@@ -1,6 +1,6 @@
 import React from 'react';
-import { List, Datagrid, TextField, EmailField } from 'react-admin';
-import UrlField from './urlField'
+import { List, Datagrid, TextField, EmailField, EditButton } from 'react-admin';
+import UrlField from '../urlField'
 
 export const UserList = (props:any) => (
     <List {...props}>
@@ -11,6 +11,7 @@ export const UserList = (props:any) => (
             <EmailField source="email" />
             <TextField source="phone" />
             <UrlField source="website" />
+            <EditButton />
         </Datagrid>
     </List>
 );
