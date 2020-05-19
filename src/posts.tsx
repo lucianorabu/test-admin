@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, Datagrid, TextField, ReferenceField, EditButton, SimpleForm, TextInput, ReferenceInput, SelectInput, Edit, Create } from 'react-admin';
 
-export const PostList = props => (
+export const PostList = (props:any) => (
     <List {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
@@ -16,12 +16,8 @@ export const PostList = props => (
     </List>
 );
 
-const PostTitle = ({ record }) => {
-    return <span>Post {record ? `"${record.title}"` : ''}</span>;
-};
-
-export const PostEdit = props => (
-    <Edit title={<PostTitle />} {...props}>
+export const PostEdit = (props:any) => (
+    <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
             <ReferenceInput source="userId" reference="users">
@@ -33,7 +29,7 @@ export const PostEdit = props => (
     </Edit>
 );
 
-export const PostCreate = props => (
+export const PostCreate = (props:any) => (
     <Create {...props}>
         <SimpleForm>
             <ReferenceInput source="userId" reference="users">
@@ -47,6 +43,6 @@ export const PostCreate = props => (
 
 
 const required = (message = 'Required') =>
-    value => value ? undefined : message;
-const maxLength = (max, message = 'Too long') =>
-    value => value && value.length > max ? message : undefined;
+    (value:any) => value ? undefined : message;
+const maxLength = (max: number, message = 'Too long') =>
+    (value:any) => value && value.length > max ? message : undefined;

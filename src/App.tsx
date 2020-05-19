@@ -10,7 +10,7 @@ const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
 const dataProvider2 = jsonServerProvider('http://www.mocky.io/v2/5ec3bdff30000097b039c397');
 
 const App = () => (
-  <Admin  dataProvider={dataProvider}>
+  <Admin dataProvider={dataProvider}>
     <Resource name="users" list={UserList} edit={EditGuesser} />
     <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} />
   </Admin>
