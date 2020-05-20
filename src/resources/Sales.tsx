@@ -1,7 +1,8 @@
 import React from 'react';
 import { List, Datagrid, TextField, ReferenceField, EditButton, SimpleForm, TextInput, ReferenceInput, SelectInput, Edit, Create, Filter } from 'react-admin';
+import RichTextInput from 'ra-input-rich-text';
 
-export const SaleList = (props:any) => (
+export const SaleList = (props: any) => (
     <List filters={<SaleFilter />} {...props}>
         <Datagrid rowClick="edit">
             <TextField source="id" />
@@ -16,7 +17,7 @@ export const SaleList = (props:any) => (
     </List>
 );
 
-export const SaleEdit = (props:any) => (
+export const SaleEdit = (props: any) => (
     <Edit {...props}>
         <SimpleForm>
             <TextInput disabled source="id" />
@@ -24,24 +25,24 @@ export const SaleEdit = (props:any) => (
                 <SelectInput optionText="name" />
             </ReferenceInput>
             <TextInput source="title" />
-            <TextInput multiline source="body" />
+            <RichTextInput source="body" toolbar={[['bold', 'italic', 'underline', 'link']]} />
         </SimpleForm>
     </Edit>
 );
 
-export const SaleCreate = (props:any) => (
+export const SaleCreate = (props: any) => (
     <Create {...props}>
         <SimpleForm>
             <ReferenceInput source="userId" reference="Users">
                 <SelectInput optionText="name" />
             </ReferenceInput>
-            <TextInput source="title" validate={required()} />
-            <TextInput multiline source="body" validate={[required(), maxLength(15)]} />
+            <TextInput source="title" validate={[required(), maxLength(15)]} />
+            <RichTextInput multiline source="body" toolbar={[['bold', 'italic', 'underline', 'link', 'code-block']]} validation={{ required: true }} />
         </SimpleForm>
     </Create>
 );
 
-const SaleFilter = (props:any) => (
+const SaleFilter = (props: any) => (
     <Filter {...props}>
         <TextInput label="Search" source="q" alwaysOn />
         <ReferenceInput label="User" source="userId" reference="Users" allowEmpty>
@@ -52,6 +53,6 @@ const SaleFilter = (props:any) => (
 
 
 const required = (message = 'Required') =>
-    (value:any) => value ? undefined : message;
+    (value: any) => value ? undefined : message;
 const maxLength = (max: number, message = 'This value is too long') =>
-    (value:any) => value && value.length > max ? message : undefined;
+    (value: any) => value && value.length > max ? message : undefined;
